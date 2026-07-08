@@ -1,0 +1,36 @@
+#This Workflow uses multi line command for execution
+name: Module 2 Practice
+on:
+    push:
+        branches:
+            - main
+    
+    workflow_dispatch:
+
+env:    
+    PROJECT_NAME: github-action-training
+
+jobs:
+    inspect-runner:
+        name: Inspect Github Runner
+        runs-on: ubunu-latest
+       
+        steps:
+            - name: Code Checkout
+              uses: actions/checkout@v4 
+
+            - name: Print Project Name
+              run:  echo "Peoject Name is $PROJECT_NAME"
+            
+            - name: Check Linux Details
+              run: |
+                whoami
+                pwd
+                uname -a
+                df -h
+                free -m
+                ss -tulpn
+
+            - name: List Repositories
+              run: ls -l
+

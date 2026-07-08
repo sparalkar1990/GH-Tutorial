@@ -2,7 +2,7 @@ name: First CI Workflow
 
 on:
     push:
-        branch:
+        branches:
             - main
 
 jobs:
