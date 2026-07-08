@@ -13,7 +13,7 @@ env:
 jobs:
     inspect-runner:
         name: Inspect Github Runner
-        runs-on: ubunu-latest
+        runs-on: ubuntu-latest
        
         steps:
             - name: Code Checkout
