@@ -1,0 +1,23 @@
+name: First CI Workflow
+
+on:
+    push:
+        branch:
+            - main
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout Source Code
+              uses: actions/checkout@v4
+
+            - name: Print Message
+              run: echo "Hello SOurabh, Github Pipeline is running."
+
+            - name: Shhow current DIR
+              run: pwd
+            
+            - name: List Files
+              run: ls -ltr
