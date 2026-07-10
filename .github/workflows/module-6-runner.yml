@@ -45,7 +45,7 @@ jobs:
             - name: Display Available Resource
               run: |
                 echo "########## CPU INFO ##########"
-                ncproc
+                nproc
                 
                 echo "########## MEMORY INFO ##########"
                 free -h
@@ -68,6 +68,7 @@ jobs:
                 node --version
     
     run-test:
+        needs: [ inspect-linux-runner ]
         runs-on: windows-2025
         name: "Run Tests"
         if: ${{ inputs.run_tests }}
