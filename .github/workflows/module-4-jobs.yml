@@ -23,7 +23,7 @@ jobs:
               run: |
                 echo "Github Workpsace: $GITHUB_WORKSPACE"
                 echo "Runner OS: $RUNNER_OS"
-                echo "RUnner Architecture: $RUNNER_ARC"
+                echo "RUnner Architecture: $RUNNER_ARCH"
 
             - name: Build Application
               run: |
