@@ -1,0 +1,49 @@
+name: Module 4 - Jobs and Steps
+run-name: "${{ github.actor }} was triggered the job on ${{ github.ref_name }} by event ${{ github.event_name }}"
+
+on: 
+    workflow_dispatch: 
+        inputs:
+            run_test:
+                description: "Run Test Cases?"
+                required: true
+                type: boolean
+                default: true
+
+jobs:
+    build:
+        name: Build Application
+        runs-on: ubunut-latest
+        
+        steps:
+            - name: Checkout Source Code
+              uses: actions/checkout@v4
+        
+            - name: Display Runner Info
+              run: |
+                echo "Github Workpsace: $GITHUB_WORKSPACE"
+                echo "Runner OS: $RUNNER_OS"
+                echo "RUnner Architecture: $RUNNER_ARC"
+
+            - name: Build Application
+              run: |
+                echo "Starting Application."
+                sleep 3
+                echo "App Build Successfully."
+
+    test:
+        needs: build
+        name: Test Application
+        runs-on: ubuntu-latest
+        if: ${{ inputs.run_tests }}
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+
+            - name: Execute Tests
+              run: | 
+                echo "Starting tests.."
+                sleep 3
+                echo "All Test Passed."
+
