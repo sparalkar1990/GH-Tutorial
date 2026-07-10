@@ -4,7 +4,7 @@ run-name: "${{ github.actor }} was triggered the job on ${{ github.ref_name }} b
 on: 
     workflow_dispatch: 
         inputs:
-            run_test:
+            run_tests:
                 description: "Run Test Cases?"
                 required: true
                 type: boolean
