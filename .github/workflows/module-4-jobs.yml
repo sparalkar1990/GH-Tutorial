@@ -13,7 +13,7 @@ on:
 jobs:
     build:
         name: Build Application
-        runs-on: ubunut-latest
+        runs-on: ubuntu-22.04
         
         steps:
             - name: Checkout Source Code
@@ -34,7 +34,7 @@ jobs:
     test:
         needs: build
         name: Test Application
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-22.04
         if: ${{ inputs.run_tests }}
 
         steps:
