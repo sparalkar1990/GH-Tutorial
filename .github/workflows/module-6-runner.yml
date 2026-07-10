@@ -1,0 +1,89 @@
+name: 'Module 6 - Runner Fundamental'
+run-name: "Triggered by ${{ github.event_name }} on ${{ github.ref }} branch"
+
+on: 
+    workflow_dispatch: 
+        inputs:
+
+            environment:
+                description: "Select Target ENV:"
+                required: true
+                type: choice 
+                options:
+                    - dev
+                    - qa
+                    - prod
+            
+            run_tests:
+                description: "Run Tests?"
+                required: true
+                type: boolean
+                default: true
+
+jobs:
+    inspect-linux-runner:
+        name: "Runner Inspector"
+        runs-on: ubuntu-22.04
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+
+            - name: Display Runner Information
+              run: |
+                echo "RUNNER NAME: ${{ runner.name }} OR $RUNNER_NAME"
+                echo "RUNNER OS: ${{ runner.os }}"
+                echo "RUNNER ARHITECTURE: ${{ runner.arch }}"
+                echo "RUNNER TEMP DIR: ${{ runner.temp }}"
+                echo "RUNNER TOOL CACHE: ${{ runner.tool_cache }}"
+
+            - name: Display OS Information
+              run: |
+                uname -a
+                cat /etc/os-release
+            
+            - name: Display Available Resource
+              run: |
+                echo "########## CPU INFO ##########"
+                ncproc
+                
+                echo "########## MEMORY INFO ##########"
+                free -h
+
+                echo "########## DISK INFO ##########"
+                df -h
+            
+            - name: Display Installed Tools
+              run: |
+                echo "########## GIT VERSION ##########"
+                git --version
+
+                echo "########## DOCKER VERSION ##########"
+                docker --version
+
+                echo "########## PYTHON VERSION ##########"
+                python --version
+
+                echo "########## NODE VERSION ##########"
+                node --version
+    
+    run-test:
+        runs-on: windows-2025
+        name: "Run Tests"
+        if: ${{ inputs.run_tests }}
+
+        steps:
+          - name: Checkout
+            uses: actions/checkout@v4
+
+          - name: "Run Tests"
+            run: |
+             echo "Started Running Tests."
+             sleep 3
+             echo "Tests run completed.."  
+            
+
+             
+        
+
+
