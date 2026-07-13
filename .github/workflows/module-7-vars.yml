@@ -6,10 +6,12 @@ on:
     workflow_dispatch: 
 
 env:
-    APP_NAME: 'inventory-app'
-    VERSION: '1.0' 
+    APP_NAME: 'inventory-app' 
+
 jobs:
     build:
+        env:
+            VERSION: '1.0'
         name: Build Variable Job
         runs-on: ubuntu-22.04
         steps:
