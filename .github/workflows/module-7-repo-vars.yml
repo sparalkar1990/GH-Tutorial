@@ -1,0 +1,33 @@
+name: 'Repository level Variables'
+
+run-name: 'Triggered by ${{ github.actor }} on ${{ github.ref_name }}'
+
+on: 
+    workflow_dispatch: 
+        inputs:
+            environment:
+                description: 'Select Target ENV'
+                required: true
+                type: choice
+                options:
+                    - dev
+                    - qa
+                    - prod
+
+jobs:
+    build:
+        name: 'Build Repo level variables'
+        runs-on: ubuntu-22.04
+
+        steps:
+            - name: 'Project Name'
+              run: echo " Project Name ${{ vars.PROJECT_NAME }}"
+
+            - name: 'Registry Details'
+              run: echo "Registry Name ${{ vars.REGISTRY }}"
+
+            - name: 'AWS Region'
+              run: echo "AWS Region ${{ vars.AWS_REGION }}"
+
+            - name: 'JAVA Version'
+              run: echo "JAVA Version ${{ vars.JAVA_VERSION }}"  
