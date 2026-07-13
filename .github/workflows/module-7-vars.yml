@@ -1,13 +1,13 @@
-name: Module 7 Variables
+name: 'Module 7 Variables'
 
-run-name: "Triggered by ${{ github.actor }} on ${{ github.ref_name }}"
+run-name: 'Triggered by ${{ github.actor }} on ${{ github.ref_name }}'
 
 on:
     workflow_dispatch: 
 
 env:
-    APP_NAME: "inventory-app"
-    VERSION: "1.0" 
+    APP_NAME: 'inventory-app'
+    VERSION: '1.0' 
 jobs:
     build:
         name: Build Variable Job
@@ -22,8 +22,9 @@ jobs:
             - name: SHOW VER NAME
               run: echo "APP VERSION = $VERSION"
 
-              env: VERSION = "2.0"
             - name: SHOW APP VER AS PER STEP
               run: echo "APP VERSION = $VERSION"
+              env:
+                VERSION: '2.0'
 
         
