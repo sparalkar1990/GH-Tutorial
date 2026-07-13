@@ -1,4 +1,4 @@
-name: 'Repository level Variables'
+name: 'Module 7 Repository level Variables'
 
 run-name: 'Triggered by ${{ github.actor }} on ${{ github.ref_name }}'
 
