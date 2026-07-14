@@ -1,0 +1,54 @@
+name: "Cross Platform Build"
+
+run-name: "Triggered by ${{ github.actor }} on ${{ github.ref_name }} by event ${{ github.event_name }}"
+
+on:
+    workflow_dispatch: 
+
+jobs:
+    build:
+        strategy:
+            matrix:
+                operating-system:
+                    - ubuntu-latest
+                    - windows-latest
+                    - macos-latest
+
+        runs-on: ${{ matrix.operating-system }}
+
+        steps:
+            - name: 'Runner Details'
+              run: | 
+                echo "RUNNER OS - ${{ runner.os }}"
+                echo "RUNNER ARCH - ${{ runner.arch }}"
+
+            - name: 'Linux Command'
+              if: runner.os == 'linux'
+              run: uname -a
+
+            - name: 'Windows Command'
+              if: runner.os == 'windows'
+              run: systeminfo
+              
+            - name: 'Macos Command'
+              if: runner.os == 'macos'
+              run: sw_vers 
+            
+            - name: 'Download Architecture specific Utility'
+              run: |
+                if [ "${{ runner.arch }}" == "X64" ]; then
+                    echo "Download amd64 package"
+                elif [ "${{ runner.arch }}" == "ARM64"]; then
+                    echo "Download ARM64 Package"
+                else
+                    echo "Unsupported architecture"
+                fi    
+               
+            - name: 'Upload failure logs'
+              if: failure()
+              uses: actions/upload-artifact@v4
+              with:
+                name: test-failure-logs
+                path: ${{ runner.temp }}/test-logs  
+
+              
