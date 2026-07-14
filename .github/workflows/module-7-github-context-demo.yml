@@ -1,5 +1,39 @@
 name: 'Github Context Demo'
+
 run-name: 'Triggered By ${{ github.actor }} on ${{ github.ref_name }}'
+
 on:
-  workflow_dispatch:
+  push:
+    branches: 
+      - main
+      - feature
+    paths: 
+      - "src/*"
+
+  workflow_dispatch:   
+
+
+jobs:
+  workflow-context:
+    name: 'Display context information'
+    runs-on: ubuntu-22.04
+    
+    steps:
+      - name: Checkout
+        run: actions/Checkout@v4
+
+      - name: 'Display Contexts'
+        if: ${{ github.event_name == 'workflow_dispatch' }}
+        run: |
+          echo "ACTOR: ${{ github.actor }}"
+          echo "REPO: ${{ github.repository }}"
+          echo "WORKFLOW: ${{ github.workflow }}"
+          echo "EVENT: ${{ github.event_name }}"
+          echo "FULL REF: ${{ github.ref }}"
+          echo "REF: ${{ github.ref_name }}"
+          echo "SHA: ${{ github.sha }}"
+          echo "RUN NUMBER: ${{ github.run_number }}"
+          echo "RUN ID: ${{ github.run_id }}"
+      
+
               
