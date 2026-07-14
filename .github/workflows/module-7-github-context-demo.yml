@@ -9,6 +9,7 @@ on:
       - feature
     paths: 
       - "src/*"
+      - ".github/workflows/*"
 
   workflow_dispatch:   
 
