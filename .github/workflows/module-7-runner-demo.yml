@@ -35,6 +35,7 @@ jobs:
               run: sw_vers 
             
             - name: 'Download Architecture specific Utility'
+              shell: bash   #If we skip this line shell script syntax becomes unsupported for windows OS
               run: |
                 if [ "${{ runner.arch }}" == "X64" ]; then
                     echo "Download amd64 package"
