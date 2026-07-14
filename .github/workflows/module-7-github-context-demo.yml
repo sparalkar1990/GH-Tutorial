@@ -1,6 +1,6 @@
 name: 'Github Context Demo'
 
-run-name: 'Triggered By ${{ github.actor }} on ${{ github.ref_name }}'
+run-name: '${{ github.run_id }}: Triggered By ${{ github.actor }} on ${{ github.ref_name }} banch, by event ${{ github.event_name }} - ${{ github.sha }}'
 
 on:
   push:
