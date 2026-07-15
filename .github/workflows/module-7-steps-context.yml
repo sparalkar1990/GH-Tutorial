@@ -19,7 +19,7 @@ jobs:
             - name: 'Generate Application Version'
               id: version
               run: |
-                SHORT_SHA="${{ github.sha }}::7"
+                SHORT_SHA="${{ github.sha::7 }}"
                 VERSION="1.0.${{ github.run_id }}-${SHORT_SHA}"
 
                 echo "version=$VERSION" >> "$GITHUB_OUTPUT"
