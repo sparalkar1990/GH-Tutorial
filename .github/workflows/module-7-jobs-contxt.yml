@@ -1,0 +1,69 @@
+name: 'Job Context Demo'
+run-name: 'Triggered by ${{ github.actor }} on ${{ github.ref_name }} by the event ${{ github.event_name }}'
+
+on:
+    workflow_dispatch: 
+        inputs:
+            simulate-failure:
+                description: 'Simulate Description Failure'
+                required: true
+                type: boolean
+                default: false
+
+jobs:
+    deploy:
+        name: 'Deploy Application'
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: 'Checkout Repository'
+              uses: actions/checkout@v4
+            
+            - name: 'Start Deployment'
+              run: |
+               echo "Deployment has started.."
+               echo "Current job status ${{ job.status }}"
+
+            - name: 'Simulate Deployment'
+              shell: bash
+              run: |
+               echo "Deploying Application.."
+               if [[ "${{ inputs.simulate-failure }}" == "true" ]]; then
+                echo "::error::Simulated Deployment Failure"
+                exit 1
+               fi
+
+               echo "Deployment Completed Successfully."
+            
+            - name: 'Run Smoke Test'
+              run: |
+               echo "Running Smoke Test.."
+               sleep 5
+               echo "SMoke Test Passed.."
+             
+            - name: 'Success Notification'
+              if: ${{ success() }}
+              run: |
+               echo "Job Notification Starus: SUCCESS"
+            
+            - name: 'Failure Notification'
+              if: ${{ failure() }}
+              run: |
+                echo "Job Notification: FAILURE"
+                echo "Job Status: ${{ job.status }}"
+                echo "Engineering team should investigate the failure reason"
+                
+            - name: 'Cancelled Notification'
+              if: ${{ cancelled() }}
+              run: |
+                echo "Depoyment Notification: CANCELLED"
+                echo "Job Status: ${{ job.status }}"
+            
+            - name: 'Always run final report'    
+              if: ${{ always() }}
+              run: |
+                echo "Final job Result: ${{ job.status }}"
+                echo "Workflow run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
+
+
