@@ -20,7 +20,7 @@ jobs:
               id: version
               run: |
                 SHORT_SHA="${{ github.sha }}::7"
-                VERSION="1.0.${ github.run_id }-${SHORT_SHA}"
+                VERSION="1.0.${{ github.run_id }}-${SHORT_SHA}"
 
                 echo "version=$VERSION" >> "$GITHUB_OUTPUT"
                 echo "short_sha=$SHORT_SHA" >> $GITHUB_OUTPUT
